@@ -1,6 +1,6 @@
 # Quartet
 
-![Quartet](https://raw.githubusercontent.com/LeaxZevon/mdImages/main/picgo/FCNN4.png)
+![Quartet](https://raw.githubusercontent.com/LeaxZevon/mdImages/main/picgo/FCNN-new.png)
 
 This is the implementation of paper "A Query Aware Database Adaptive Compilation Decision System".
 
