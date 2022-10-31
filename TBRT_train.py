@@ -75,7 +75,7 @@ if __name__ == '__main__':
     model = net
     training_step = 5000
     # optimizer
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)  # 传入 net 的所有参数, 学习率
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
     # loss function
     loss_func = nn.CrossEntropyLoss()  #
     train_label_tensor = torch.LongTensor(train_label)
