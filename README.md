@@ -17,4 +17,4 @@ torch       >= 1.11.0
 The folder `nets` contains all the neural networks used in our paper,  `data` contains the dataset used in our
 experiments, and `utils` contains some functions used in our training process.
 
-The file  `Quartet_train.py` is the implementation of our model.
+The file  `Quartet_OC_train.py` is the implementation of our model.
