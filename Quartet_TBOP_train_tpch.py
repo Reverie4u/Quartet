@@ -6,11 +6,12 @@ from torch import nn
 import nets.tcnn as tcnn
 from nets.fcnn import FCNN
 from nets.util import prepare_trees
+from utils import writeCsv
 from utils.process_txt import read_txt
 
 torch.manual_seed(10)
 net = nn.Sequential(
-    tcnn.BinaryTreeConv(15, 128),
+    tcnn.BinaryTreeConv(13, 128),
     tcnn.TreeLayerNorm(),
     tcnn.TreeActivation(nn.ReLU()),
     tcnn.BinaryTreeConv(128, 64),
@@ -48,9 +49,16 @@ def transformer(x):
     return np.array(x[0])
 
 
+def numCount(arr, target):
+    arr = np.array(arr)
+    mask = (arr == target)
+    arr_new = arr[mask]
+    return arr_new.size
+
+
 if __name__ == '__main__':
-    data = read_txt("./data/TBRT_data.txt")
-    label = read_txt("./data/TBCNN_label.txt")
+    data = read_txt("./data/TBOP_data_tpch.txt")
+    label = read_txt("./data/TBCNN_label_tpch.txt")
     # partition the data set
     train_data = []
     train_label = []
@@ -75,7 +83,7 @@ if __name__ == '__main__':
     model = net
     training_step = 5000
     # optimizer
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.00005)
     # loss function
     loss_func = nn.CrossEntropyLoss()  #
     train_label_tensor = torch.LongTensor(train_label)
@@ -110,7 +118,13 @@ if __name__ == '__main__':
         pz.append(test_loss.data)
         py1.append(train_acc)
         pz1.append(test_acc)
-    torch.save(model, "TBRT_model.pkl")
+    torch.save(model, "TBOP_tpch_model.pkl")
+    # store train_loss and test_loss
+    writeCsv.writecsv("./data/TBOP_tpch_train_loss.csv", np.array(py))
+    writeCsv.writecsv("./data/TBOP_tpch_test_loss.csv", np.array(pz))
+    # store train_acc and test_acc
+    writeCsv.writecsv("./data/TBOP_tpch_train_acc.csv", np.array(py1))
+    writeCsv.writecsv("./data/TBOP_tpch_test_acc.csv", np.array(pz1))
     ax1 = plt.subplot(1, 2, 1)
     p1 = ax1.plot(px, py, "r-", lw=1)
     p2 = ax1.plot(px, pz, "b-", lw=1)
@@ -119,4 +133,4 @@ if __name__ == '__main__':
     p3 = ax2.plot(px, py1, "r-", lw=1)
     p4 = ax2.plot(px, pz1, "b-", lw=1)
     ax2.legend(["train acc", "test acc"], loc='upper right')
-    plt.savefig("./images/train_TBRT.png")
+    plt.savefig("./images/train_TBOP_tpch.png")
