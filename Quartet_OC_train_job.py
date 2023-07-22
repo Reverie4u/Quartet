@@ -62,10 +62,6 @@ if __name__ == '__main__':
 
     job_test = job_data[job_test_index]
     job_test_target = job_label[job_test_index]
-    # train = np.append(train, job_data[job_train_index], axis=0)
-    # train_target = np.append(train_target, job_label[job_train_index], axis=0)
-    # test = np.append(test, job_data[job_test_index], axis=0)
-    # test_target = np.append(test_target, job_label[job_test_index], axis=0)
     train = job_data[job_train_index]
     train_target = job_label[job_train_index]
     test = job_data[job_test_index]

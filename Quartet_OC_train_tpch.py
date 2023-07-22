@@ -120,7 +120,7 @@ if __name__ == '__main__':
             print("Iteration %d:" % (step + 1))
             print("\t train_loss=%f, train_acc=%f" % (float(train_loss.data), float(train_acc)))
             print("\t test_loss=%f, test_acc=%f" % (float(test_loss.data), float(test_acc)))
-            print("\t job_acc=%f" % (job_acc))
+            print("\t job_acc=%f" % (job_acc))  # 使用tpch训练集来预测job
         px.append(step)
         py.append(train_loss.data.cpu())
         pz.append(test_loss.data.cpu())
